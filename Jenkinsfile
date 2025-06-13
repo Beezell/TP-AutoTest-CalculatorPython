@@ -12,8 +12,18 @@ pipeline {
 
         stage('Tests') {
             steps {
-                echo "Lancement des tests Pytest"
-                sh '. venv/bin/activate && pytest --cov=app'
+                echo "Lancement des tests Pytest avec couverture"
+                sh '''
+                    . venv/bin/activate && \
+                    pytest --cov=app --cov-report=term-missing --cov-report=html
+                '''
+            }
+
+            // Optionnel : Archive le rapport HTML pour consultation dans Jenkins
+            post {
+                always {
+                    archiveArtifacts artifacts: 'htmlcov/**', fingerprint: true
+                }
             }
         }
     }
