@@ -21,7 +21,7 @@ HTML = """
     <option value="puissance">^</option>
   </select>
   <input name=b type=number step="any" required>
-  <input type=submit value=Calculer>
+  <button  type=submit value=Calculer>
 </form>
 
 {% if result is not none %}
