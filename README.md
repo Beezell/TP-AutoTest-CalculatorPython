@@ -3,7 +3,7 @@
 
 Ce projet s'inscrit dans le cadre du TP2  Automatisation des tests avec Pytest & Jenkins et du TP 3 : Automatisation des tests avec Selenium.
 
-Il s'agit d'une application Python simple de calculatrice, accompagnée d'une suite de tests automatisés et d'un pipeline d'intégration continue avec Jenkins.
+Il s'agit d'une application Python simple de calculatrice, accompagnée d'une suite de tests automatisés et d'un pipeline d'intégration continue avec Jenkins. 
 
 ## Objectifs pédagogiques
 
