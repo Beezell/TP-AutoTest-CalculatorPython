@@ -1,10 +1,16 @@
+import sys
 import time
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 
 def test_addition():
-    service = Service("drivers/chromedriver.exe")
+    # Choix du chromedriver selon l'OS
+    if sys.platform.startswith("win"):
+        service = Service("drivers/chromedriver.exe")
+    else:
+        service = Service("drivers/chromedriver")  # version Linux, sans .exe
+
     driver = webdriver.Chrome(service=service)
 
     driver.get("http://localhost:5000")
