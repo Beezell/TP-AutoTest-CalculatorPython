@@ -1,64 +1,77 @@
 
 # Python Calculator – Tests Automatisés & Intégration Continue
 
-Dans le cadre du TP "Automatisation des tests avec Pytest & Jenkins".
+Ce projet s'inscrit dans le cadre du TP2  Automatisation des tests avec Pytest & Jenkins et du TP 3 : Automatisation des tests avec Selenium.
 
-Projet Python simple de calculatrice avec :
+Il s'agit d'une application Python simple de calculatrice, accompagnée d'une suite de tests automatisés et d'un pipeline d'intégration continue avec Jenkins.
 
-* Fonctions mathématiques de base
-* Tests automatisés avec `pytest`, `pytest-cov`, `mock`
-* Intégration continue avec Jenkins (webhook GitHub)
+## Objectifs pédagogiques
 
-## Fonctionnalités
+* Développer des tests unitaires avec `pytest`
+* Mettre en place des tests fonctionnels avec Selenium
+* Générer des rapports de couverture et de tests en HTML
+* Définir un pipeline CI avec Jenkins déclenché automatiquement à chaque modification du code
 
-L'application fournit les fonctions suivantes :
+## Fonctionnalités de la calculatrice
+
+L'application fournit les opérations mathématiques suivantes :
 
 * `addition(a, b)`
 * `soustraction(a, b)`
 * `multiplication(a, b)`
-* `division(a, b)` (gestion division par zéro)
+* `division(a, b)` (avec gestion de la division par zéro)
 * `puissance(a, b)`
-* `modulo(a, b)` (gestion modulo par zéro)
-* `calcul_complexe(a, b)` (utilisée pour tests avec `mock`)
+* `modulo(a, b)` (avec gestion du modulo par zéro)
+* `calcul_complexe(a, b)` (fonction fictive pour illustrer l’utilisation de `mock`)
 
-## Tests
+## Tests automatisés
 
-Tests unitaires avec `pytest` :
+### Tests unitaires
 
-* Cas de réussite et cas d'erreur
-* Simulation de comportements avec `mock`
+Réalisés avec `pytest`, les tests unitaires couvrent :
 
-Commande locale :
+* Les cas standard de chaque fonction
+* Les cas d’erreur (division par zéro, modulo par zéro, etc.)
+* L'utilisation de `mock` pour tester des comportements isolés
 
-```bash
-pytest --cov=app --cov-report=term-missing
-```
+### Tests fonctionnels
 
-## Intégration Jenkins
+Les tests fonctionnels utilisent Selenium pour interagir avec l’interface web de la calculatrice développée avec Flask.
 
-Pipeline défini dans `Jenkinsfile` :
+## Intégration continue (Jenkins)
 
-* Création d'un environnement Python
-* Installation des dépendances
-* Exécution des tests avec couverture
-* Rapport HTML de couverture (archivé dans Jenkins)
-* Déclenchement automatique à chaque `git push` via webhook
+Un pipeline Jenkins est défini dans le fichier `Jenkinsfile`. Il comprend les étapes suivantes :
+
+1. **Préparation** : création d’un environnement virtuel Python et installation des dépendances
+2. **Build et lancement de l'application** : exécution de l’application Flask en arrière-plan
+3. **Tests unitaires** : exécution avec `pytest` et génération d’un rapport de couverture
+4. **Tests fonctionnels** : lancement des tests Selenium et génération d’un rapport HTML
+5. **Archivage des rapports** : les rapports sont enregistrés dans Jenkins comme artefacts
+6. **Nettoyage** : arrêt du serveur Flask
+
+Le pipeline est automatiquement déclenché à chaque `git push` via un webhook GitHub.
 
 ## Structure du projet
 
 ```
-.
-├── app/
-│   └── calculatrice.py
+├── app/   
+│   └──  calculatrice.py
+├── drivers/
+│   └── chromedriver
+├── reports/
+│   └── selenium_report.html
 ├── tests/
-│   └── test_calculatrice.py
+│   ├── test_calculatrice.py
+│   └── test_functional_selenium.py
+├── web/
+│   └── app_web.py
 ├── requirements.txt
 ├── Jenkinsfile
 ├── pytest.ini
 └── README.md
 ```
 
-## Installation locale
+### Installation locale et exécution des tests
 
 ```bash
 git clone https://github.com/Beezell/TP-AutoTest-CalculatorPython.git
@@ -66,5 +79,5 @@ cd TP-AutoTest-CalculatorPython
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
-pytest --cov=app --cov-report=term-missing
+pytest --cov=app --cov-report=term-missing --cov-report=html
 ```
